@@ -1,0 +1,66 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: class1
+
+---
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: class1-resource-quota
+  namespace: class1
+spec:
+  hard:
+    requests.cpu: 400m
+    requests.memory: 200Mi
+    limits.cpu: 600m
+    limits.memory: 500Mi
+
+    pods: 10
+    services: 5
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: class1-web-deploy
+  namespace: class1
+  annotations:
+    kubernetes.io/change-cause: version 1.15
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: web
+  template:
+    metadata:
+      name: nginx-pod
+      labels:
+        app: web
+    spec:
+      containers:
+      - name: nginx-container
+        image: nginx:1.15
+        resources:
+          requests:
+            memory: "10Mi"
+            cpu: "20m"
+          limits:
+            memory: "30Mi"
+            cpu: "30m"
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-service
+  namespace: class1
+spec:
+  type: NodePort
+  ports:
+  - port: 80
+    targetPort: 80
+    nodePort: 30100
+  selector:
+    app: web

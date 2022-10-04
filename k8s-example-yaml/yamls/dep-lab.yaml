@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dep-mainui
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+     app: web
+    matchExpressions:
+    - {key: version, operator: In, values: ["2.2", "2.3"]}
+  template:
+    metadata:
+      name: httpd-pod
+      labels:
+        app: web
+        version: "2.2"
+    spec:
+      containers:
+      - name: httpd-container
+        image: httpd:2.2

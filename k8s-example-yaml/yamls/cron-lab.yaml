@@ -1,0 +1,20 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: echo
+spec:
+  schedule: "20 9 * * *"
+  concurrencyPolicy : Forbid
+  jobTemplate:
+    spec:
+      activeDeadlineSeconds: 300
+      template:
+        spec:
+          containers:
+          - name: centos-container
+            image: centos:7
+            command: ["bash"]
+            args:
+            - "-c"
+            - "echo 'Hello World'; sleep 5; echo 'Bye'"
+          restartPolicy: OnFailure

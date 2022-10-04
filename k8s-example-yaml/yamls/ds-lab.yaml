@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: ds-mainui
+spec:
+  selector:
+    matchLabels:
+     app: ds-mainui
+  template:
+    metadata:
+      name: httpd-pod
+      labels:
+        app: ds-mainui
+        version: "2.2"
+    spec:
+      containers:
+      - name: web-container
+        image: httpd:2.2
+        resources:
+          requests:
+            cpu: 500m
+      nodeSelector:
+        diskType: ssd

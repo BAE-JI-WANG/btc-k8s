@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: rc-mainui
+spec:
+  replicas: 3
+  selector:
+    app: main
+  template:
+    metadata:
+      name: apache
+      labels:
+        app: main
+        rel: stable
+    spec:
+      containers:
+      - name: apache-container
+        image: httpd:2.2

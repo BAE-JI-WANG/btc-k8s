@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: petclinic-web-deployment
+  labels:
+    app: spring-petclinic
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: spring-petclinic
+  template:
+    metadata:
+      labels:
+        app: spring-petclinic
+        tier: web
+    spec:
+      containers:
+      - name: web-petclinic-container
+        image: bjy502/modjk-httpd:1.0.0
+        ports:
+        - containerPort: 80
+          name: http-svc

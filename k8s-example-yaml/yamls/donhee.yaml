@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Pod
+metadata:
+ name: webui
+ labels:
+  app: web
+  tier: frontend
+  release: stable
+spec:
+ volumes:
+   - name: webdata
+     emptyDir: {}
+ nodeSelector:
+  disktype: ssd
+ containers:
+   - image: nginx:1.14
+     name: web
+     volumeMounts:
+       - name: webdata
+         mountPath: /usr/share/nginx/html
+     resources:
+      requests:
+        cpu: 100m
+        memory: 250Mi
+   - name: debian-container
+     image: debian
+     volumeMounts:
+       - name: webdata
+         mountPath: /webdata
+     command: ["/bin/bash"]
+     args: ["-c", "while true; do echo 'Helping You Adopt Cloud' > /webdata/index.html; sleep 10;  done"]

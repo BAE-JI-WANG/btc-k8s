@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: webserver2
+  namespace: devops
+spec:
+  containers:
+  - image: nginx:1.14
+    name: nginx
+    ports:
+    - containerPort: 80
+    resources:
+      limits:
+        cpu: 2
+        memory: 100Mi

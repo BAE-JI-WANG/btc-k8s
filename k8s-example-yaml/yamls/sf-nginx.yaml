@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: sf-nginx
+spec:
+  replicas: 3
+  serviceName: sf-nginx-svc
+  selector:
+    matchLabels:
+     app: web
+  template:
+    metadata:
+      name: nginx-pod
+      labels:
+        app: web
+        version: "1.14"
+    spec:
+      containers:
+      - name: nginx-container
+        image: nginx:1.14

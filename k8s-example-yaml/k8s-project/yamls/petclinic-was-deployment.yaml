@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: petclinic-was-deployment
+  labels:
+    app: spring-petclinic
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: spring-petclinic
+  template:
+    metadata:
+      labels:
+        app: spring-petclinic
+        tier: was
+    spec:
+      containers:
+      - name: spring-petclinic-container
+        image: bjy502/petclinic:221003
+        ports:
+        - containerPort: 8080
+          name: petclinic-svc
+        - containerPort: 8009
+          name: ajp
