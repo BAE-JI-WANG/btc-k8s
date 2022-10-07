@@ -6,7 +6,7 @@ spec:
   capacity:
     storage: 2Gi
   accessModes:
-    - ReadWriteOnce
+  - ReadWriteOnce
   persistentVolumeReclaimPolicy: Recycle
   hostPath:
     path: /Volumes/Data

@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mongodb
+spec:
+  containers:
+  - image: mongo
+    name: db
+    volumeMounts:
+    - name: dbdata
+      mountPath: /data
+  volumes:
+  - name: dbdata
+    persistentVolumeClaim:
+      claimName: mongodb-pvc

@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: php-apache
+  name: webserver
 spec:
   replicas: 1
   selector:
@@ -13,7 +13,7 @@ spec:
         app: web
     spec:
       containers:
-      - image: smlinux/hpa-example
+      - image: bjy502/phpapp:v1
         name: c1
         ports:
         - containerPort: 80
@@ -24,7 +24,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: php-apache
+  name: webserver-svc
 spec:
   ports:
   - port: 80
