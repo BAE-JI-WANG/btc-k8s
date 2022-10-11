@@ -9,4 +9,4 @@ COPY --from=builder /spring-petclinic/target/spring-petclinic-2.7.0-SNAPSHOT.jar
 
 EXPOSE 8080/TCP 8009/TCP
 
-CMD ["java", "-jar", "/svc/app/bin/spring-petclinic-2.7.0-SNAPSHOT.jar"]
+CMD ["java", "-jar","-Dspring.profiles.active='mysql'", "/svc/app/bin/spring-petclinic-2.7.0-SNAPSHOT.jar"]
