@@ -1,0 +1,7 @@
+FROM openjdk:11
+ADD spring-petclinic.tar
+WORKDIR spring-petclinic/
+CMD ["./mvnw", "package"]
+ARG JAR_FILE_PATH=target/*.jar
+COPY ${JAR_FILE_PATH} spring.jar
+CMD ["java", "-jar", "spring.jar"]
