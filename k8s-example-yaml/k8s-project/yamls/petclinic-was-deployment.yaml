@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: petclinic-was-deployment
+  namespace: petclinic
   labels:
     app: spring-petclinic
 spec:
@@ -15,11 +16,32 @@ spec:
         app: spring-petclinic
         tier: was
     spec:
-      containers:
+      containers:        
       - name: spring-petclinic-container
-        image: bjy502/petclinic:221003
+        image: bjy502/petclinic:221011
+        resources: 
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
         ports:
         - containerPort: 8080
           name: petclinic-svc
         - containerPort: 8009
           name: ajp
+---
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: was-hpa
+  namespace: petclinic
+spec:
+  maxReplicas: 10
+  minReplicas: 1
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: petclinic-was-deployment
+  targetCPUUtilizationPercentage: 30
+status:
+  currentReplicas: 0
+  desiredReplicas: 0

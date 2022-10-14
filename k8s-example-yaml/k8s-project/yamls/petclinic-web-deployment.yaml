@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: petclinic-web-deployment
+  namespace: petclinic
   labels:
     app: spring-petclinic
 spec:
@@ -17,7 +18,7 @@ spec:
     spec:
       containers:
       - name: web-petclinic-container
-        image: bjy502/modjk-httpd:1.0.0
+        image: bjy502/modjk-httpd:1.0.3
         ports:
         - containerPort: 80
           name: http-svc

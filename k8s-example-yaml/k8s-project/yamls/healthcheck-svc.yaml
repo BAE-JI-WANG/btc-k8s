@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: "web"
+  labels:
+    app: "petclinic"
+  annotations:
+    alb.ingress.kubernetes.io/healthcheck-path: /healthy
+spec:
+  type: "NodePort"
+  ports:
+    - name: "http"
+      port: 80
+      targetPort: 80
+      protocol: TCP
